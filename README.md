@@ -1,1 +1,3 @@
-# database-systems-CS-432
+# CS-432 Database Systems
+
+Binghamton University
