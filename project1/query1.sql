@@ -1,0 +1,1 @@
+SELECT B#, first_name || ' ' || last_name as name FROM students WHERE st_level = 'master' AND gpa > 3.5;

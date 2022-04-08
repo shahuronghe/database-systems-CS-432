@@ -1,0 +1,1 @@
+SELECT classid, dept_code, course#, (c.limit - c.class_size) as seat_available FROM classes c WHERE course# > 500 AND year = 2021 AND semester = 'Spring';

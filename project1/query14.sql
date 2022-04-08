@@ -1,0 +1,1 @@
+SELECT DISTINCT B#, first_name, gpa FROM students, g_enrollments WHERE students.B# = g_enrollments.g_B# AND st_level = 'master' ORDER BY gpa DESC FETCH FIRST 3 ROWS ONLY;

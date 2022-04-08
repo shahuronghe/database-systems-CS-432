@@ -1,0 +1,1 @@
+SELECT s.B#, s.first_name, s.last_name FROM students s WHERE (SELECT COUNT(*) FROM g_enrollments g WHERE (SELECT COUNT(*) FROM classes cl WHERE g.classid = cl.classid) > 0 AND g.G_B# NOT IN (SELECT g_enroll.g_B# FROM g_enrollments g_enroll WHERE (SELECT COUNT(*) FROM score_grade sg WHERE g_enroll.score = sg.score AND sg.lgrade = 'A') > 0) AND g.g_B# = s.B#) > 0;

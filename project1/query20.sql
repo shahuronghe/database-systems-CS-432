@@ -1,0 +1,1 @@
+SELECT c.dept_code, c.course#, AVG(score) AS "Average Score" FROM courses c, classes cl, g_enrollments g WHERE c.dept_code=cl.dept_code AND c.course#=cl.course# AND cl.classid=g.classid AND score IS NOT NULL GROUP BY c.dept_code, c.course#;

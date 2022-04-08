@@ -1,0 +1,1 @@
+SELECT B#, first_name, last_name FROM students WHERE B# IN ((SELECT g_B# FROM g_enrollments e JOIN classes c ON e.classid = c.classid AND c.dept_code = 'CS') MINUS (SELECT g_B# FROM g_enrollments e JOIN classes c ON e.classid = c.classid AND c.dept_code = 'Math'));

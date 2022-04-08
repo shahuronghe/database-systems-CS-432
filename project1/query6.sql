@@ -1,0 +1,1 @@
+SELECT DISTINCT s.B#, s.first_name, s.last_name FROM students s JOIN (SELECT a.g_B# FROM (SELECT * FROM g_enrollments g JOIN classes cl ON g.classid = cl.classid ) a JOIN (SELECT * FROM g_enrollments g_en WHERE g_en.g_B# NOT IN (SELECT g.g_B# FROM g_enrollments g JOIN score_grade sg ON g.score = sg.score WHERE sg.lgrade NOT IN ('A') )) b ON a.g_B# = b.g_B#) c ON s.B# = c.g_B#;

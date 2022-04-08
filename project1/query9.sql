@@ -1,0 +1,1 @@
+SELECT dept_code, course# FROM courses WHERE course#=(SELECT course# FROM classes c, g_enrollments g WHERE c.classid=g.classid GROUP BY course# HAVING COUNT(*)=(SELECT MAX(COUNT(*)) FROM classes c, g_enrollments g WHERE c.classid=g.classid GROUP BY course#));

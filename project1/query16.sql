@@ -1,0 +1,2 @@
+column lgrade format a13;
+SELECT co.dept_code, co.course#, co.title, lgrade FROM courses co, classes cl, g_enrollments g, score_grade sg WHERE co.course# = cl.course# AND cl.classid = g.classid AND g.score = sg.score AND g.g_B# = 'B00000003' UNION SELECT co.dept_code, co.course#, co.title, 'missing grade' FROM courses co, classes cl, g_enrollments g WHERE co.dept_code=cl.dept_code AND co.course#=cl.course# AND cl.classid=g.classid AND g_b#='B00000003' AND g.score IS NULL;

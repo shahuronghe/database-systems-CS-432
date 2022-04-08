@@ -1,0 +1,1 @@
+SELECT classes.dept_code, classes.course#, courses.title FROM classes, courses, g_enrollments WHERE year = 2021 AND semester = 'Spring' AND classes.course# = courses.course# AND g_enrollments.g_B# = 'B00000003' AND g_enrollments.classid = classes.classid;

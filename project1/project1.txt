@@ -1,0 +1,223 @@
+Shahu Ronghe B00908937 sronghe1@binghamton.edu
+
+“I have done this assignment completely on my own. I have not copied it, nor have I given my solution to anyone else. I understand that if I am involved in plagiarism or cheating I will have to sign an official form that I have cheated and that this form will be stored in my official university record. I also understand that I will receive a grade of 0 for the involved assignment and my grade will be reduced by one level (e.g., from A to A- or from B+ to B) for my first offense, and that I will receive a grade of “F” for the course for any additional offense of any kind.”
+
+
+
+SQL> start query1
+SQL> SELECT B#, first_name || ' ' || last_name as name FROM students WHERE st_level = 'master' AND gpa > 3.5;
+
+B#        NAME                                                                  
+--------- -------------------------------                                       
+B00000001 Anne Broder                                                           
+B00000003 Tracy Wang                                                            
+B00000007 Becky Lee                                                             
+B00000009 Ben Liu                                                               
+B00000010 Sata Patel                                                            
+
+SQL> start query2
+SQL> SELECT classes.dept_code, classes.course#, courses.title FROM classes, courses, g_enrollments WHERE year = 2021 AND semester = 'Spring' AND classes.course# = courses.course# AND g_enrollments.g_B# = 'B00000003' AND g_enrollments.classid = classes.classid;
+
+DEPT    COURSE# TITLE                                                           
+---- ---------- --------------------                                            
+CS          432 database systems                                                
+CS          536 machine learning                                                
+
+SQL> start query3
+SQL> column "birth date" format a10;
+SQL> SELECT DISTINCT B#, first_name, bdate as "birth date" FROM students, classes, g_enrollments WHERE classes.dept_code = 'CS' AND classes.classid = g_enrollments.classid AND students.B# = g_enrollments.g_B#;
+
+B#        FIRST_NAME      birth date                                            
+--------- --------------- ----------                                            
+B00000001 Anne            17-JAN-94                                             
+B00000005 Jack            18-OCT-95                                             
+B00000003 Tracy           06-AUG-97                                             
+B00000006 Terry           15-JUN-92                                             
+B00000004 Barbara         18-OCT-95                                             
+B00000007 Becky           12-NOV-96                                             
+
+6 rows selected.
+
+SQL> start query4
+SQL> SELECT s.B#, s.first_name, s.last_name, s.gpa FROM students s JOIN (SELECT a.g_B# FROM (SELECT g.g_B# FROM g_enrollments g JOIN classes c ON g.classid = c.classid WHERE c.dept_code = 'CS' GROUP BY g.g_B#) a JOIN (SELECT g.g_B# FROM g_enrollments g JOIN classes c ON g.classid = c.classid WHERE c.dept_code = 'Math' GROUP BY g.g_B#) b ON a.g_B# = b.g_B#) g_enroll ON s.B# = g_enroll.g_B#;
+
+B#        FIRST_NAME      LAST_NAME              GPA                            
+--------- --------------- --------------- ----------                            
+B00000001 Anne            Broder                 3.7                            
+
+SQL> start query5
+SQL> SELECT s.B#, s.first_name, s.last_name FROM students s WHERE (SELECT COUNT(*) FROM g_enrollments g WHERE (SELECT COUNT(*) FROM classes cl WHERE g.classid = cl.classid) > 0 AND g.G_B# NOT IN (SELECT g_enroll.g_B# FROM g_enrollments g_enroll WHERE (SELECT COUNT(*) FROM score_grade sg WHERE g_enroll.score = sg.score AND sg.lgrade = 'A') > 0) AND g.g_B# = s.B#) > 0;
+
+B#        FIRST_NAME      LAST_NAME                                             
+--------- --------------- ---------------                                       
+B00000002 Terry           Buttler                                               
+B00000004 Barbara         Callan                                                
+B00000005 Jack            Smith                                                 
+
+SQL> start query6
+SQL> SELECT DISTINCT s.B#, s.first_name, s.last_name FROM students s JOIN (SELECT a.g_B# FROM (SELECT * FROM g_enrollments g JOIN classes cl ON g.classid = cl.classid ) a JOIN (SELECT * FROM g_enrollments g_en WHERE g_en.g_B# NOT IN (SELECT g.g_B# FROM g_enrollments g JOIN score_grade sg ON g.score = sg.score WHERE sg.lgrade NOT IN ('A') )) b ON a.g_B# = b.g_B#) c ON s.B# = c.g_B#;
+
+B#        FIRST_NAME      LAST_NAME                                             
+--------- --------------- ---------------                                       
+B00000007 Becky           Lee                                                   
+B00000006 Terry           Zillman                                               
+
+SQL> start query7
+SQL> SELECT classid, dept_code, course#, (c.limit - c.class_size) as seat_available FROM classes c WHERE course# > 500 AND year = 2021 AND semester = 'Spring';
+
+CLASS DEPT    COURSE# SEAT_AVAILABLE                                            
+----- ---- ---------- --------------                                            
+c0005 CS          536              1                                            
+c0006 CS          532              1                                            
+c0007 CS          550              0                                            
+
+SQL> start query8
+SQL> SELECT g_B#, SUM(credits) AS total_credits FROM g_enrollments g, classes c, course_credit cc WHERE g.classid=c.classid AND c.course#=cc.course# GROUP BY g_B#;
+
+G_B#      TOTAL_CREDITS                                                         
+--------- -------------                                                         
+B00000003            11                                                         
+B00000001            22                                                         
+B00000005             7                                                         
+B00000006             3                                                         
+B00000007             3                                                         
+B00000002             4                                                         
+B00000004             7                                                         
+
+7 rows selected.
+
+SQL> start query9
+SQL> SELECT dept_code, course# FROM courses WHERE course#=(SELECT course# FROM classes c, g_enrollments g WHERE c.classid=g.classid GROUP BY course# HAVING COUNT(*)=(SELECT MAX(COUNT(*)) FROM classes c, g_enrollments g WHERE c.classid=g.classid GROUP BY course#));
+
+DEPT    COURSE#                                                                 
+---- ----------                                                                 
+CS          432                                                                 
+
+SQL> start query10
+SQL> SELECT B#, first_name, last_name, COUNT(*) AS number_of_classes_taken FROM students s, g_enrollments g WHERE s.B#=g.g_B# GROUP BY B#, first_name, last_name HAVING COUNT(*)>=2;
+
+B#        FIRST_NAME      LAST_NAME       NUMBER_OF_CLASSES_TAKEN               
+--------- --------------- --------------- -----------------------               
+B00000004 Barbara         Callan                                2               
+B00000005 Jack            Smith                                 2               
+B00000003 Tracy           Wang                                  3               
+B00000001 Anne            Broder                                6               
+
+SQL> start query11
+SQL> SELECT c.classid, c.dept_code, c.course# FROM classes c WHERE c.classid IN (SELECT g.classid FROM g_enrollments g WHERE g.g_B# IN (SELECT s.B# FROM students s WHERE gpa IS NOT NULL AND last_name LIKE 'B%'));
+
+CLASS DEPT    COURSE#                                                           
+----- ---- ----------                                                           
+c0001 CS          432                                                           
+c0002 Math        314                                                           
+c0003 Math        314                                                           
+c0004 CS          432                                                           
+c0005 CS          536                                                           
+c0006 CS          532                                                           
+
+6 rows selected.
+
+SQL> start query12
+SQL> SELECT DISTINCT B#, first_name, last_name FROM students, classes, g_enrollments WHERE students.B# = g_enrollments.g_B# AND g_enrollments.classid = classes.classid AND classes.class_size = 13 AND classes.dept_code = 'CS';
+
+B#        FIRST_NAME      LAST_NAME                                             
+--------- --------------- ---------------                                       
+B00000004 Barbara         Callan                                                
+B00000003 Tracy           Wang                                                  
+B00000001 Anne            Broder                                                
+
+SQL> start query13
+SQL> SELECT DISTINCT B#, first_name, last_name FROM students, g_enrollments, classes, courses WHERE students.B# = g_enrollments.g_B# AND g_enrollments.classid = classes.classid AND classes.course# = courses.course# AND courses.title LIKE '%database%';
+
+B#        FIRST_NAME      LAST_NAME                                             
+--------- --------------- ---------------                                       
+B00000005 Jack            Smith                                                 
+B00000004 Barbara         Callan                                                
+B00000006 Terry           Zillman                                               
+B00000003 Tracy           Wang                                                  
+B00000001 Anne            Broder                                                
+
+SQL> start query14
+SQL> SELECT DISTINCT B#, first_name, gpa FROM students, g_enrollments WHERE students.B# = g_enrollments.g_B# AND st_level = 'master' ORDER BY gpa DESC FETCH FIRST 3 ROWS ONLY;
+
+B#        FIRST_NAME             GPA                                            
+--------- --------------- ----------                                            
+B00000007 Becky                    4                                            
+B00000003 Tracy                    4                                            
+B00000001 Anne                   3.7                                            
+
+SQL> start query15
+SQL> SELECT B#, first_name, last_name FROM students WHERE B# IN ((SELECT g_B# FROM g_enrollments e JOIN classes c ON e.classid = c.classid AND c.dept_code = 'CS') MINUS (SELECT g_B# FROM g_enrollments e JOIN classes c ON e.classid = c.classid AND c.dept_code = 'Math'));
+
+B#        FIRST_NAME      LAST_NAME                                             
+--------- --------------- ---------------                                       
+B00000003 Tracy           Wang                                                  
+B00000004 Barbara         Callan                                                
+B00000005 Jack            Smith                                                 
+B00000006 Terry           Zillman                                               
+B00000007 Becky           Lee                                                   
+
+SQL> start query16
+SQL> column lgrade format a13;
+SQL> SELECT co.dept_code, co.course#, co.title, lgrade FROM courses co, classes cl, g_enrollments g, score_grade sg WHERE co.course# = cl.course# AND cl.classid = g.classid AND g.score = sg.score AND g.g_B# = 'B00000003' UNION SELECT co.dept_code, co.course#, co.title, 'missing grade' FROM courses co, classes cl, g_enrollments g WHERE co.dept_code=cl.dept_code AND co.course#=cl.course# AND cl.classid=g.classid AND g_b#='B00000003' AND g.score IS NULL;
+
+DEPT    COURSE# TITLE                LGRADE                                     
+---- ---------- -------------------- -------------                              
+CS          432 database systems     A                                          
+CS          432 database systems     B+                                         
+CS          536 machine learning     missing grade                              
+
+SQL> start query17
+SQL> SELECT g.*, sg.lgrade FROM g_enrollments g, score_grade sg WHERE g.score = sg.score AND g.score IS NOT NULL ORDER BY g.score DESC;
+
+G_B#      CLASS      SCORE LGRADE                                               
+--------- ----- ---------- -------------                                        
+B00000003 c0004         94 A                                                    
+B00000001 c0004         94 A                                                    
+B00000001 c0001         92 A                                                    
+B00000007 c0007         92 A                                                    
+B00000006 c0006         92 A                                                    
+B00000003 c0001         84 B+                                                   
+B00000004 c0005         82 B+                                                   
+B00000005 c0006       79.5 B                                                    
+B00000001 c0003         76 B                                                    
+B00000005 c0001         76 B                                                    
+B00000002 c0002         76 B                                                    
+
+G_B#      CLASS      SCORE LGRADE                                               
+--------- ----- ---------- -------------                                        
+B00000001 c0005         76 B                                                    
+B00000001 c0006       72.8 B-                                                   
+B00000001 c0002         68 C+                                                   
+B00000004 c0004      65.35 C                                                    
+
+15 rows selected.
+
+SQL> start query18
+SQL> SELECT B#, first_name, last_name FROM students WHERE B# IN (SELECT g_B# FROM g_enrollments WHERE classid IN (SELECT classid FROM g_enrollments WHERE g_B# = 'B00000004'));
+
+B#        FIRST_NAME      LAST_NAME                                             
+--------- --------------- ---------------                                       
+B00000003 Tracy           Wang                                                  
+B00000001 Anne            Broder                                                
+B00000004 Barbara         Callan                                                
+
+SQL> start query19
+SQL> SELECT AVG(credits_sum) AS average_total_credits FROM students s INNER JOIN (SELECT g.g_b#, SUM(ccc.credits) AS credits_sum FROM g_enrollments g INNER JOIN (SELECT c.classid, c.course#, cc.credits FROM classes c INNER JOIN (SELECT course#, credits FROM course_credit) cc ON c.course# = cc.course#) ccc ON g.classid = ccc.classid WHERE g.score IS NOT NULL GROUP BY g_B#) c ON s.B# = c.g_B#;
+
+AVERAGE_TOTAL_CREDITS                                                           
+---------------------                                                           
+           7.71428571                                                           
+
+SQL> start query20
+SQL> SELECT c.dept_code, c.course#, AVG(score) AS "Average Score" FROM courses c, classes cl, g_enrollments g WHERE c.dept_code=cl.dept_code AND c.course#=cl.course# AND cl.classid=g.classid AND score IS NOT NULL GROUP BY c.dept_code, c.course#;
+
+DEPT    COURSE# Average Score                                                   
+---- ---------- -------------                                                   
+Math        314    73.3333333                                                   
+CS          532    81.4333333                                                   
+CS          550            92                                                   
+CS          536            79                                                   
+CS          432        84.225                                                   
+
+SQL> spool off

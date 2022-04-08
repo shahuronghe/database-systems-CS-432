@@ -1,0 +1,1 @@
+SELECT c.classid, c.dept_code, c.course# FROM classes c WHERE c.classid IN (SELECT g.classid FROM g_enrollments g WHERE g.g_B# IN (SELECT s.B# FROM students s WHERE gpa IS NOT NULL AND last_name LIKE 'B%'));

@@ -1,0 +1,1 @@
+SELECT g_B#, SUM(credits) AS total_credits FROM g_enrollments g, classes c, course_credit cc WHERE g.classid=c.classid AND c.course#=cc.course# GROUP BY g_B#;

@@ -1,0 +1,1 @@
+SELECT DISTINCT B#, first_name, last_name FROM students, g_enrollments, classes, courses WHERE students.B# = g_enrollments.g_B# AND g_enrollments.classid = classes.classid AND classes.course# = courses.course# AND courses.title LIKE '%database%';

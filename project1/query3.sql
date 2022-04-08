@@ -1,0 +1,2 @@
+column "birth date" format a10;
+SELECT DISTINCT B#, first_name, bdate as "birth date" FROM students, classes, g_enrollments WHERE classes.dept_code = 'CS' AND classes.classid = g_enrollments.classid AND students.B# = g_enrollments.g_B#;
