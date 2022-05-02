@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/SUNYloaner/AndroidStudioProjects/StudentSystem/app/src/main/res/layout/activity_delete_student.xml" value="0.18802083333333333" />
+        <entry key="..\:/Users/SUNYloaner/AndroidStudioProjects/StudentSystem/app/src/main/res/layout/activity_drop_student.xml" value="0.23229166666666667" />
+        <entry key="..\:/Users/SUNYloaner/AndroidStudioProjects/StudentSystem/app/src/main/res/layout/activity_enroll_student.xml" value="0.23229166666666667" />
+        <entry key="..\:/Users/SUNYloaner/AndroidStudioProjects/StudentSystem/app/src/main/res/layout/activity_list_class_students.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/SUNYloaner/AndroidStudioProjects/StudentSystem/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/SUNYloaner/AndroidStudioProjects/StudentSystem/app/src/main/res/layout/activity_show_all_tables.xml" value="0.23229166666666667" />
+        <entry key="..\:/Users/SUNYloaner/AndroidStudioProjects/StudentSystem/app/src/main/res/layout/activity_show_prequisites.xml" value="0.23229166666666667" />
+        <entry key="..\:/Users/SUNYloaner/AndroidStudioProjects/StudentSystem/app/src/main/res/layout/list_view.xml" value="0.18802083333333333" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

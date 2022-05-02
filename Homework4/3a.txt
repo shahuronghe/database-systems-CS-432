@@ -1,0 +1,94 @@
+SQL> create view CS_Courses as SELECT * FROM courses WHERE dept_code = 'CS';
+
+View created.
+
+SQL> select * from CS_Courses;
+
+DEPT    COURSE# TITLE                                                           
+---- ---------- --------------------                                            
+CS          432 database systems                                                
+CS          240 data structure                                                  
+CS          575 algorithms                                                      
+CS          532 database systems                                                
+CS          550 operating systems                                               
+CS          536 machine learning                                                
+
+6 rows selected.
+
+SQL> select * from courses;
+
+DEPT    COURSE# TITLE                                                           
+---- ---------- --------------------                                            
+CS          432 database systems                                                
+Math        314 discrete math                                                   
+CS          240 data structure                                                  
+CS          575 algorithms                                                      
+CS          532 database systems                                                
+CS          550 operating systems                                               
+CS          536 machine learning                                                
+
+7 rows selected.
+
+SQL> insert into CS_Courses values ('CS', 522, 'database systems 2');
+
+1 row created.
+
+SQL> select * from CS_Courses;
+
+DEPT    COURSE# TITLE                                                           
+---- ---------- --------------------                                            
+CS          432 database systems                                                
+CS          240 data structure                                                  
+CS          575 algorithms                                                      
+CS          532 database systems                                                
+CS          550 operating systems                                               
+CS          536 machine learning                                                
+CS          522 database systems 2                                              
+
+7 rows selected.
+
+SQL> select * from courses;
+
+DEPT    COURSE# TITLE                                                           
+---- ---------- --------------------                                            
+CS          432 database systems                                                
+Math        314 discrete math                                                   
+CS          240 data structure                                                  
+CS          575 algorithms                                                      
+CS          532 database systems                                                
+CS          550 operating systems                                               
+CS          536 machine learning                                                
+CS          522 database systems 2                                              
+
+8 rows selected.
+
+SQL> delete from CS_Courses WHERE course# = 522;
+
+1 row deleted.
+
+SQL> select * from CS_Courses;
+
+DEPT    COURSE# TITLE                                                           
+---- ---------- --------------------                                            
+CS          432 database systems                                                
+CS          240 data structure                                                  
+CS          575 algorithms                                                      
+CS          532 database systems                                                
+CS          550 operating systems                                               
+CS          536 machine learning                                                
+
+6 rows selected.
+
+SQL> select * from courses;
+
+DEPT    COURSE# TITLE                                                           
+---- ---------- --------------------                                            
+CS          432 database systems                                                
+Math        314 discrete math                                                   
+CS          240 data structure                                                  
+CS          575 algorithms                                                      
+CS          532 database systems                                                
+CS          550 operating systems                                               
+CS          536 machine learning                                                
+
+7 rows selected.

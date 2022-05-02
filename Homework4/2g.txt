@@ -1,0 +1,56 @@
+SQL> select * from classes;
+
+CLASS DEPT    COURSE#      SECT#       YEAR SEMESTER      LIMIT CLASS_SIZE
+----- ---- ---------- ---------- ---------- -------- ---------- ----------
+ROOM
+----------
+c0001 CS          432          1       2021 Spring           13         12
+LH 005
+
+c0002 Math        314          1       2020 Fall             13         12
+LH 009
+
+c0003 Math        314          2       2020 Fall             14         11
+LH 009
+
+
+CLASS DEPT    COURSE#      SECT#       YEAR SEMESTER      LIMIT CLASS_SIZE
+----- ---- ---------- ---------- ---------- -------- ---------- ----------
+ROOM
+----------
+c0004 CS          432          1       2020 Spring           13         13
+SW 222
+
+c0005 CS          536          1       2021 Spring           14         13
+LH 003
+
+c0006 CS          532          1       2021 Spring           10          9
+LH 005
+
+
+CLASS DEPT    COURSE#      SECT#       YEAR SEMESTER      LIMIT CLASS_SIZE
+----- ---- ---------- ---------- ---------- -------- ---------- ----------
+ROOM
+----------
+c0007 CS          550          1       2021 Spring           11         11
+WH 155
+
+c0008                          1       2021 Spring           10          9
+LH 005
+
+c0009 CS                       1       2021 Spring           10          9
+LH 005
+
+
+CLASS DEPT    COURSE#      SECT#       YEAR SEMESTER      LIMIT CLASS_SIZE
+----- ---- ---------- ---------- ---------- -------- ---------- ----------
+ROOM
+----------
+c0010             532          1       2021 Spring           10         10
+LH 005
+
+c0011             522          1       2021 Spring           10         10
+LH 005
+
+
+11 rows selected.
